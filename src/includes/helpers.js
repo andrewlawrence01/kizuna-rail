@@ -1,3 +1,4 @@
+
 /**
  * Generates a unique Japan Rail like confirmation code for bookings.
  * @returns {string} A unique confirmation code.
@@ -26,4 +27,30 @@ const yenToUsd = (yen) => {
     return yen * exchangeRate;
 };
 
-export { generateConfirmationCode, kmToMiles, yenToUsd };
+/**
+ * Converts a month number into a three-letter month abbreviation.
+ * Accepts month numbers from 1 through 12.
+ * @param {number|string} month - The month number.
+ * @returns {string} The three-letter month abbreviation, or an empty string if invalid.
+ */
+const monthAbbreviation = (month) => {
+    const months = [
+        'Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+        'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'
+    ];
+
+    const monthNumber = Number(month);
+
+    if (!Number.isInteger(monthNumber) || monthNumber < 1 || monthNumber > 12) {
+        return '';
+    }
+
+    return months[monthNumber - 1];
+};
+
+export {
+    generateConfirmationCode,
+    kmToMiles,
+    yenToUsd,
+    monthAbbreviation
+};

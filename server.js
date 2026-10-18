@@ -42,20 +42,18 @@ app.set('view engine', 'ejs');
 // Tell Express where to find your templates
 app.set('views', Path.join(__dirname, 'src/views'));
 
-// Parse JSON and URL-encoded request bodies (for processing POST data)
+// Parse JSON and URL-encoded request bodies
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 /**
  * Global Middleware
  */
-
 app.use(globalMiddleware);
 
 /**
  * Routes
  */
-
 app.use('/', routes);
 
 /**
@@ -71,6 +69,9 @@ app.use((req, res, next) => {
 
 // Global error handler
 app.use((err, req, res, next) => {
+    // Print the full error in the terminal for debugging
+    console.error(err);
+
     // Determine status and template
     const status = err.status || 500;
     const template = status === 404 ? '404' : '500';

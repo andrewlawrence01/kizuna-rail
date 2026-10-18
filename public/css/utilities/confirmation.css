@@ -1,3 +1,4 @@
+
 article.confirmation-page {
     max-width: var(--content-max-width);
     margin: 0 auto;
@@ -337,37 +338,21 @@ article.confirmation-page {
                 flex-direction: row;
                 gap: var(--space-lg);
                 padding: var(--space-lg) var(--space-2xl);
-
-                .reference-label {
-                    font-size: var(--font-size-sm);
-                }
-
-                .reference-number {
-                    font-size: var(--font-size-2xl);
-                }
             }
         }
 
         .confirmation-content {
-            .booking-details {
-                .details-grid {
-                    grid-template-columns: repeat(2, 1fr);
-                    gap: var(--space-lg);
-                }
+            .booking-details .details-grid {
+                grid-template-columns: repeat(2, 1fr);
+                gap: var(--space-lg);
             }
 
-            .passengers-info {
-                .passengers-list {
-                    .passenger-info-card {
-                        .passenger-details {
-                            flex-direction: row;
-                            gap: var(--space-xl);
+            .passengers-info .passengers-list .passenger-info-card .passenger-details {
+                flex-direction: row;
+                gap: var(--space-xl);
 
-                            .passenger-detail {
-                                flex: 1;
-                            }
-                        }
-                    }
+                .passenger-detail {
+                    flex: 1;
                 }
             }
 
@@ -384,12 +369,8 @@ article.confirmation-page {
     }
 
     @media (min-width: 1024px) {
-        .confirmation-content {
-            .booking-details {
-                .details-grid {
-                    grid-template-columns: repeat(4, 1fr);
-                }
-            }
+        .confirmation-content .booking-details .details-grid {
+            grid-template-columns: repeat(4, 1fr);
         }
     }
 }
@@ -399,21 +380,178 @@ article.confirmation-page {
         transform: scale(0);
         opacity: 0;
     }
+
     to {
         transform: scale(1);
         opacity: 1;
     }
 }
 
+/* Print layout */
+@page {
+    size: letter portrait;
+    margin: 0.4in;
+}
+
 @media print {
+    body {
+        background: white !important;
+        color: black !important;
+        font-size: 9pt;
+    }
+
     article.confirmation-page {
-        .confirmation-actions {
-            display: none;
-        }
+        max-width: none;
+        width: 100%;
+        margin: 0;
+        padding: 0;
 
         .confirmation-header {
-            background-color: white;
-            border: 2px solid var(--clr-primary);
+            padding: 10px;
+            margin-bottom: 12px;
+            gap: 6px;
+            background: white !important;
+            border: 1px solid black;
+            border-radius: 0;
+
+            .success-icon {
+                animation: none;
+
+                svg {
+                    filter: none;
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+
+            .confirmation-title {
+                font-size: 18pt;
+                color: black;
+            }
+
+            .confirmation-message {
+                font-size: 9pt;
+                color: black;
+            }
+
+            .booking-reference {
+                margin-top: 4px;
+                padding: 5px 10px;
+                background: white;
+                border: 1px dashed black;
+                border-radius: 0;
+
+                .reference-label,
+                .reference-number {
+                    color: black;
+                    font-size: 10pt;
+                }
+            }
         }
+
+        .confirmation-content {
+            gap: 12px;
+
+            .section-title {
+                font-size: 12pt;
+                margin-bottom: 6px;
+                padding-bottom: 3px;
+                color: black;
+                border-bottom: 1px solid black;
+            }
+
+            .booking-details .details-grid {
+                grid-template-columns: repeat(2, minmax(0, 1fr));
+                gap: 6px;
+
+                .detail-card {
+                    padding: 7px;
+                    gap: 7px;
+                    background: white;
+                    border: 1px solid #999;
+                    border-radius: 0;
+                    box-shadow: none;
+                    break-inside: avoid;
+
+                    .detail-icon {
+                        font-size: 14pt;
+                    }
+
+                    .detail-content {
+                        gap: 2px;
+
+                        .detail-label {
+                            font-size: 7pt;
+                            color: #444;
+                        }
+
+                        .detail-value {
+                            font-size: 9pt;
+                            color: black;
+                            overflow-wrap: anywhere;
+                        }
+                    }
+                }
+            }
+
+            .passengers-info .passengers-list {
+                gap: 6px;
+
+                .passenger-info-card {
+                    background: white;
+                    border: 1px solid #999;
+                    border-radius: 0;
+                    box-shadow: none;
+                    break-inside: avoid;
+
+                    .passenger-header {
+                        padding: 5px 8px;
+                        background: #eee;
+
+                        .passenger-title {
+                            font-size: 9pt;
+                            color: black;
+                        }
+                    }
+
+                    .passenger-details {
+                        padding: 6px 8px;
+                        gap: 8px;
+
+                        .passenger-detail {
+                            gap: 2px;
+
+                            .passenger-label {
+                                font-size: 7pt;
+                                color: #444;
+                            }
+
+                            .passenger-value {
+                                font-size: 8pt;
+                                color: black;
+                                overflow-wrap: anywhere;
+                            }
+                        }
+                    }
+                }
+            }
+
+            .next-steps,
+            .important-info,
+            .confirmation-actions {
+                display: none !important;
+            }
+        }
+    }
+
+    *,
+    *::before,
+    *::after {
+        box-shadow: none !important;
+        text-shadow: none !important;
+        animation: none !important;
+        transition: none !important;
+        print-color-adjust: economy;
+        -webkit-print-color-adjust: economy;
     }
 }
